@@ -27,5 +27,18 @@ class ActorMovieDbDatasource extends ActorsDatasource {
     List<Actor> actors = castResponse.cast.map((cast) => ActorMapper.castToEntity(cast)).toList();
 
     return actors;
+  }
+  
+  @override
+  Future<List<Actor>> getActorsBySerie(String serieId) async {
+    final response = await dio.get('/tv/$serieId/credits');
+
+    if(response.statusCode != 200) throw Exception("Cast with id: $serieId not found :(");
+
+    final castResponse = CreditsResponse.fromJson(response.data);
+
+    List<Actor> actors = castResponse.cast.map((cast) => ActorMapper.castToEntity(cast)).toList();
+
+    return actors;
   } 
 }

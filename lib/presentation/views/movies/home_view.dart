@@ -42,7 +42,7 @@ class HomeViewState extends ConsumerState<HomeView> {
           flexibleSpace: FlexibleSpaceBar(
             //remove left padding
             titlePadding: EdgeInsets.zero,
-            title: CustomAppbar(),
+            title: CustomMoviesAppbar(),
           ),
         ),
 
@@ -88,7 +88,6 @@ class HomeViewState extends ConsumerState<HomeView> {
                   MoviesHorizontalListview(
                     movies: topRatedMovies,
                     title: "Mejor calificadas",
-                    //subTitle: "Abril 4",
                     loadNextPage: () => ref
                         .read(topRatedMoviesProvider.notifier)
                         .loadNextPage(),
@@ -97,7 +96,6 @@ class HomeViewState extends ConsumerState<HomeView> {
                   MoviesHorizontalListview(
                     movies: popularMovies,
                     title: "Populares",
-                    //subTitle: "Abril 4",
                     loadNextPage: () =>
                         ref.read(popularMoviesProvider.notifier).loadNextPage(),
                   ),

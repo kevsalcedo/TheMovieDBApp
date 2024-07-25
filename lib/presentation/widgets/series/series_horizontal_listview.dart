@@ -1,29 +1,29 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/config/helpers/human_formats.dart';
-import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/serie.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MoviesHorizontalListview extends StatefulWidget {
-  final List<Movie> movies;
+class SeriesHorizontalListview extends StatefulWidget {
+  final List<Serie> series;
   final String? title;
   final String? subTitle;
   final VoidCallback? loadNextPage;
 
-  const MoviesHorizontalListview({
+  const SeriesHorizontalListview({
     super.key,
-    required this.movies,
+    required this.series,
     this.title,
     this.subTitle,
     this.loadNextPage,
   });
 
   @override
-  State<MoviesHorizontalListview> createState() =>
-      _MoviesHorizontalListviewState();
+  State<SeriesHorizontalListview> createState() =>
+      _SeriesHorizontalListviewState();
 }
 
-class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
+class _SeriesHorizontalListviewState extends State<SeriesHorizontalListview> {
   @override
   void initState() {
     super.initState();
@@ -56,13 +56,13 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
           Expanded(
             child: ListView.builder(
               controller: scrollController,
-              itemCount: widget.movies.length,
+              itemCount: widget.series.length,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return FadeInRight(
                   child: _Slide(
-                    movie: widget.movies[index],
+                    serie: widget.series[index],
                   ),
                 );
               },
@@ -104,9 +104,9 @@ class _Title extends StatelessWidget {
 }
 
 class _Slide extends StatelessWidget {
-  final Movie movie;
+  final Serie serie;
 
-  const _Slide({required this.movie});
+  const _Slide({required this.serie});
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,7 @@ class _Slide extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                movie.posterPath,
+                serie.posterPath,
                 fit: BoxFit.cover,
                 width: 150,
                 loadingBuilder: (context, child, loadingProgress) {
@@ -136,7 +136,7 @@ class _Slide extends StatelessWidget {
                   }
                   return GestureDetector(
                     child: FadeIn(child: child),
-                    onTap: () => context.push('/home/0/movie/${movie.id}'),
+                    onTap: () => context.push('/home/1/serie/${serie.id}'),
                   );
                 },
               ),
@@ -149,7 +149,7 @@ class _Slide extends StatelessWidget {
           SizedBox(
             width: 150,
             child: Text(
-              movie.title,
+              serie.name,
               maxLines: 2,
               style: textStyles.titleSmall,
             ),
@@ -162,11 +162,11 @@ class _Slide extends StatelessWidget {
               children: [
                 Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
                 const SizedBox(width: 3),
-                Text(movie.voteAverage.toStringAsFixed(1),
+                Text(serie.voteAverage.toStringAsFixed(1),
                     style: textStyles.bodyMedium
                         ?.copyWith(color: Colors.yellow.shade800)),
                 const Spacer(),
-                Text(HumanFormats.number(movie.popularity),
+                Text(HumanFormats.number(serie.popularity),
                     style: textStyles.bodySmall),
               ],
             ),

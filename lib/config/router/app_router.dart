@@ -22,6 +22,15 @@ final appRouter = GoRouter(
             return MovieScreen(movieId: movieId);
           },
         ),
+        GoRoute(
+          path: 'serie/:id',
+          name: SerieScreen.name,
+          builder: (context, state) {
+            final serieId = state.pathParameters['id'] ?? 'no-id';
+
+            return SerieScreen(serieId: serieId);
+          },
+        ),
       ],
     ),
 
